@@ -1,0 +1,938 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #1b5e20;
+            --secondary-color: #4caf50;
+            --accent-color: #81c784;
+            --text-color: #333;
+            --light-bg: #f1f8e9;
+            --card-bg: #ffffff;
+            --gradient-start: #1b5e20;
+            --gradient-end: #2e7d32;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+            min-height: 100vh;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4, #45B7D1, #96E6A1);
+            background-size: 300% 300%;
+            color: white;
+            padding: 2rem;
+            animation: fadeIn 1s ease-in, gradientBG 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .header-image-container {
+            flex-shrink: 0;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: slideIn 1s ease-out;
+        }
+
+        .header-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-content {
+            flex: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: slideDown 1s ease-out;
+        }
+
+        .header-content p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            animation: slideUp 1s ease-out;
+        }
+
+        .header-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            animation: fadeIn 1s ease-out;
+            align-items: center;
+        }
+
+        .header-contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .header-contact-item i {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        nav {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            padding: 0.8rem;
+            position: fixed;
+            right: 0;
+            top: 20px;
+            transform: none;
+            z-index: 100;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            border-radius: 10px 0 0 10px;
+            transition: all 0.3s ease;
+            width: 160px;
+        }
+
+        nav.folded {
+            transform: translateX(calc(100% - 35px));
+            width: 35px;
+        }
+
+        .nav-toggle {
+            position: absolute;
+            left: -35px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient-start);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 10px 0 0 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            z-index: 101;
+        }
+
+        .nav-toggle:hover {
+            background: var(--gradient-end);
+        }
+
+        .nav-toggle i {
+            transition: transform 0.3s ease;
+            font-size: 1rem;
+        }
+
+        nav.folded .nav-toggle i {
+            transform: rotate(180deg);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-align: left;
+            white-space: nowrap;
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            background-color: var(--accent-color);
+            transform: translateX(-5px);
+            box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav.folded a {
+            opacity: 0;
+            transform: translateX(20px);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-right: 4rem;
+            padding-bottom: 5rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: none;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideIn 0.5s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .project-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .project-card p {
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+
+        .project-link {
+            background: linear-gradient(135deg, var(--secondary-color), #388e3c);
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .project-link:hover {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        section:hover {
+            transform: translateX(5px);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4, #45B7D1, #96E6A1);
+            background-size: 300% 300%;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+            animation: gradientBG 15s ease infinite;
+            z-index: 10;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            animation: fadeIn 1s ease-in;
+            position: relative;
+            z-index: 2;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        #contact p {
+            transition: color 0.3s ease;
+        }
+
+        #contact p:hover {
+            color: var(--secondary-color);
+        }
+
+        .about-container {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .about-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .download-cv-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .download-cv-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #1976D2, #2196F3);
+        }
+
+        .download-cv-btn i {
+            font-size: 1.2rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, var(--secondary-color), #388e3c);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .cert-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--secondary-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cert-card h3 {
+            color: var(--primary-color);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .cert-card .issuer {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-card .date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Smoke Cursor Styles */
+        .smoke-cursor {
+            pointer-events: none;
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            background: rgba(27, 94, 32, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: multiply;
+            transition: width 0.3s, height 0.3s;
+            box-shadow: 0 0 20px rgba(27, 94, 32, 0.3);
+        }
+
+        .smoke-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(27, 94, 32, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: smokeFloat 1.5s ease-out forwards;
+            box-shadow: 0 0 10px rgba(27, 94, 32, 0.5);
+        }
+
+        @keyframes smokeFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .cert-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .cert-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .cert-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .cert-card h3 {
+            color: var(--primary-color);
+            margin: 1rem 0 0.5rem 0;
+            font-size: 1.3rem;
+        }
+
+        .cert-card .issuer {
+            color: #2196F3;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-card .date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .cert-card p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        #contact {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1);
+        }
+
+        .contact-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .contact-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .contact-card p {
+            color: #555;
+            font-size: 1.1rem;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .contact-card a {
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-card a:hover {
+            color: #1976D2;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .social-link i {
+            font-size: 1.2rem;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="smoke-cursor"></div>
+    <script>
+        const cursor = document.querySelector('.smoke-cursor');
+        const particles = [];
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
+        // Update cursor position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Create more particles for denser effect
+            for(let i = 0; i < 5; i++) {
+                createSmokeParticle();
+            }
+        });
+
+        // Animate cursor
+        function animate() {
+            // Faster cursor movement
+            cursorX += (mouseX - cursorX) * 0.3;
+            cursorY += (mouseY - cursorY) * 0.3;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+
+            // Update and remove particles with faster movement
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const particle = particles[i];
+                particle.style.left = (particle.offsetLeft + particle.tx * 0.15) + 'px';
+                particle.style.top = (particle.offsetTop + particle.ty * 0.15) + 'px';
+                particle.style.opacity = particle.opacity - 0.01;
+
+                if (particle.opacity <= 0) {
+                    particle.remove();
+                    particles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Create smoke particles
+        function createSmokeParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'smoke-particle';
+            
+            // Random position around cursor with larger spread
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 60;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
+            
+            particle.style.setProperty('--tx', `${tx}px`);
+            particle.style.setProperty('--ty', `${ty}px`);
+            particle.style.left = cursorX + 'px';
+            particle.style.top = cursorY + 'px';
+            particle.style.opacity = 0.8;
+            
+            particle.tx = tx;
+            particle.ty = ty;
+            particle.opacity = 0.8;
+            
+            document.body.appendChild(particle);
+            particles.push(particle);
+        }
+
+        // Start animation
+        animate();
+
+        // Add hover effect to interactive elements
+        document.querySelectorAll('a, button, .project-card, .cert-card').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.style.width = '60px';
+                cursor.style.height = '60px';
+                cursor.style.background = 'rgba(27, 94, 32, 0.6)';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursor.style.width = '40px';
+                cursor.style.height = '40px';
+                cursor.style.background = 'rgba(27, 94, 32, 0.4)';
+            });
+        });
+
+        // Add this at the beginning of your script section
+        document.addEventListener('DOMContentLoaded', function() {
+            const nav = document.querySelector('nav');
+            const navToggle = document.querySelector('.nav-toggle');
+
+            navToggle.addEventListener('click', () => {
+                nav.classList.toggle('folded');
+            });
+        });
+    </script>
+    <header>
+        <div class="header-overlay"></div>
+        <div class="header-container">
+            <div class="header-image-container">
+                <img src="images/image1.png" alt="Aruna's Profile">
+            </div>
+        <div class="header-content">
+                <h1>Aruna</h1>
+            <p>Web Developer & Designer</p>
+                <div class="header-contact">
+                    <div class="header-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>aruna@example.com</span>
+                    </div>
+                    <div class="header-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Colombo, Sri Lanka</span>
+                    </div>
+                    <div class="header-contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+94 77 123 4567</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <button class="nav-toggle">
+            <i>→</i>
+        </button>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Project</a>
+        <a href="#home">Certifications</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-container">
+                <img src="images/image.png" alt="Pakaya's Profile" class="profile-image">
+                <div class="about-content">
+                    <p>I'm a passionate web developer with expertise in HTML, CSS, JavaScript, and various modern frameworks. With a strong foundation in both front-end and back-end development, I create responsive and user-friendly web applications that solve real-world problems.</p>
+                    <div class="skills-list">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">UI/UX Design</span>
+                        <span class="skill-tag">Responsive Design</span>
+                    </div>
+                    <a href="C:\Users\ARUNA\Desktop\texthtml\dummy.pdf" class="download-cv-btn" download>
+                        <i class="fas fa-download"></i>
+                        Download CV
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="home">
+            <h2>Featured Certifications</h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Full Stack Development</h3>
+                    <div class="issuer">Udemy</div>
+                    <div class="date">March 2023</div>
+                    <p>Mastered full-stack development with modern technologies and best practices.</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>UI/UX Design</h3>
+                    <div class="issuer">Google</div>
+                    <div class="date">January 2023</div>
+                    <p>Professional certification in user interface and experience design principles.</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>AWS Certified</h3>
+                    <div class="issuer">Amazon Web Services</div>
+                    <div class="date">December 2022</div>
+                    <p>Expert in cloud computing and AWS services implementation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications">
+            <h2>Recent Certifications</h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <h3>Full Stack Web Development</h3>
+                    <div class="issuer">Udemy</div>
+                    <div class="date">March 2023</div>
+                    <p>Comprehensive course covering HTML, CSS, JavaScript, Node.js, and React.</p>
+                </div>
+                <div class="cert-card">
+                    <h3>Advanced JavaScript</h3>
+                    <div class="issuer">Coursera</div>
+                    <div class="date">February 2023</div>
+                    <p>Advanced concepts in JavaScript programming and modern frameworks.</p>
+                </div>
+                <div class="cert-card">
+                    <h3>UI/UX Design Fundamentals</h3>
+                    <div class="issuer">Google</div>
+                    <div class="date">January 2023</div>
+                    <p>Professional certification in UI design principles and practices.</p>
+                </div>
+                <div class="cert-card">
+                    <h3>AWS Certified Developer</h3>
+                    <div class="issuer">Amazon Web Services</div>
+                    <div class="date">December 2022</div>
+                    <p>Professional certification in AWS cloud development.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="certifications.html" class="project-link">View All Certifications</a>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>My Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>Project 1</h3>
+                    <p>A responsive website built with HTML5 and CSS3.</p>
+                    <a href="project1.html" class="project-link">View Project</a>
+                </div>
+                <div class="project-card">
+                    <h3>Project 2</h3>
+                    <p>An interactive web application using JavaScript.</p>
+                    <a href="project2.html" class="project-link">View Project</a>
+                </div>
+                <div class="project-card">
+                    <h3>Project 3</h3>
+                    <p>A full-stack application with modern technologies.</p>
+                    <a href="project3.html" class="project-link">View Project</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>aruna@example.com</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3>LinkedIn</h3>
+                    <a href="https://linkedin.com/in/aruna" target="_blank">linkedin.com/in/aruna</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub</h3>
+                    <a href="https://github.com/aruna" target="_blank">github.com/aruna</a>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Aruna. All rights reserved.</p>
+    </footer>
+</body>
+</html>

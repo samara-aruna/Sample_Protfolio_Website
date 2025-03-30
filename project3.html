@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 3 - Full Stack App | Pakaya's Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .project-nav {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .project-nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .project-nav a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .project-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .project-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .demo-container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: #f9f9f9;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .tech-item {
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .architecture-diagram {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .architecture-diagram img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .code-snippet {
+            background: #2c3e50;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="project-header">
+        <h1>Project 3: Full Stack Application</h1>
+        <p>A modern web application with frontend and backend integration</p>
+    </header>
+
+    <nav class="project-nav">
+        <a href="#overview">Overview</a>
+        <a href="#features">Features</a>
+        <a href="#tech">Tech Stack</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#code">Code</a>
+    </nav>
+
+    <div class="project-content">
+        <section id="overview" class="project-section">
+            <h2>Project Overview</h2>
+            <p>This project demonstrates a full-stack web application built with modern technologies. It features a responsive frontend, RESTful API backend, and database integration, showcasing best practices in web development.</p>
+        </section>
+
+        <section id="features" class="project-section">
+            <h2>Key Features</h2>
+            <ul>
+                <li>User authentication and authorization</li>
+                <li>Real-time data updates</li>
+                <li>RESTful API endpoints</li>
+                <li>Database integration</li>
+                <li>Responsive UI/UX</li>
+            </ul>
+        </section>
+
+        <section id="tech" class="project-section">
+            <h2>Technology Stack</h2>
+            <div class="tech-stack">
+                <span class="tech-item">React.js</span>
+                <span class="tech-item">Node.js</span>
+                <span class="tech-item">Express</span>
+                <span class="tech-item">MongoDB</span>
+                <span class="tech-item">JWT</span>
+                <span class="tech-item">REST API</span>
+            </div>
+        </section>
+
+        <section id="architecture" class="project-section">
+            <h2>Application Architecture</h2>
+            <div class="architecture-diagram">
+                <pre>
+Frontend (React.js) ←→ Backend (Node.js/Express) ←→ Database (MongoDB)
+     ↑                      ↑
+     └─── JWT Auth ────────┘
+                </pre>
+            </div>
+        </section>
+
+        <section id="code" class="project-section">
+            <h2>Code Snippet</h2>
+            <div class="code-snippet">
+                <pre>
+// Backend API Route
+app.post('/api/auth/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+        
+        if (!user || !user.comparePassword(password)) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+        res.json({ token });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Frontend Component
+function LoginForm() {
+    const [credentials, setCredentials] = useState({
+        email: '',
+        password: ''
+    });
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(credentials)
+            });
+            const data = await response.json();
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                // Handle successful login
+            }
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
+    };
+}
+                </pre>
+            </div>
+        </section>
+
+        <a href="text.html" class="back-button">Back to Portfolio</a>
+    </div>
+</body>
+</html> 

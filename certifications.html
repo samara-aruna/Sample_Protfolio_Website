@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifications | Pakaya's Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            animation: fadeIn 1s ease-in;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(52, 152, 219, 0.9));
+            z-index: 1;
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .cert-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .cert-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .cert-card .issuer {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .cert-card .date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .cert-card .cert-id {
+            background: #f5f5f5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .cert-card .verify-link {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .cert-card .verify-link:hover {
+            background: var(--primary-color);
+        }
+
+        .cert-category {
+            margin-bottom: 3rem;
+        }
+
+        .cert-category h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/cert-header.jpg" alt="Certifications Background" class="header-image">
+        <div class="header-overlay"></div>
+        <div class="header-content">
+            <h1>Professional Certifications</h1>
+            <p>My academic and professional achievements</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="text.html">Home</a>
+        <a href="text.html#projects">Projects</a>
+        <a href="text.html#about">About</a>
+        <a href="text.html#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        <div class="cert-category">
+            <h2>Web Development</h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <h3>Full Stack Web Development</h3>
+                    <div class="issuer">Udemy</div>
+                    <div class="date">Issued: March 2023</div>
+                    <p>Comprehensive course covering HTML, CSS, JavaScript, Node.js, and React.</p>
+                    <div class="cert-id">Cert ID: UD-123456</div>
+                    <a href="#" class="verify-link">Verify Certificate</a>
+                </div>
+                <div class="cert-card">
+                    <h3>Advanced JavaScript</h3>
+                    <div class="issuer">Coursera</div>
+                    <div class="date">Issued: February 2023</div>
+                    <p>Advanced concepts in JavaScript programming and modern frameworks.</p>
+                    <div class="cert-id">Cert ID: CR-789012</div>
+                    <a href="#" class="verify-link">Verify Certificate</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="cert-category">
+            <h2>UI/UX Design</h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <h3>User Interface Design</h3>
+                    <div class="issuer">Google</div>
+                    <div class="date">Issued: January 2023</div>
+                    <p>Professional certification in UI design principles and practices.</p>
+                    <div class="cert-id">Cert ID: GOOG-345678</div>
+                    <a href="#" class="verify-link">Verify Certificate</a>
+                </div>
+                <div class="cert-card">
+                    <h3>UX Research Fundamentals</h3>
+                    <div class="issuer">Interaction Design Foundation</div>
+                    <div class="date">Issued: December 2022</div>
+                    <p>Comprehensive training in user experience research methodologies.</p>
+                    <div class="cert-id">Cert ID: IDF-901234</div>
+                    <a href="#" class="verify-link">Verify Certificate</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="cert-category">
+            <h2>Cloud & DevOps</h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <h3>AWS Certified Developer</h3>
+                    <div class="issuer">Amazon Web Services</div>
+                    <div class="date">Issued: November 2022</div>
+                    <p>Professional certification in AWS cloud development.</p>
+                    <div class="cert-id">Cert ID: AWS-567890</div>
+                    <a href="#" class="verify-link">Verify Certificate</a>
+                </div>
+                <div class="cert-card">
+                    <h3>Docker & Kubernetes</h3>
+                    <div class="issuer">Docker Inc.</div>
+                    <div class="date">Issued: October 2022</div>
+                    <p>Containerization and orchestration technologies certification.</p>
+                    <div class="cert-id">Cert ID: DOCK-123789</div>
+                    <a href="#" class="verify-link">Verify Certificate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Pakaya. All rights reserved.</p>
+    </footer>
+</body>
+</html> 
